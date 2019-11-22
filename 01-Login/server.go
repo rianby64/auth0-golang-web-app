@@ -15,16 +15,17 @@ import (
 	"user"
 )
 
+// StartServer whatever
 func StartServer() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", home.HomeHandler)
-	r.HandleFunc("/login", login.LoginHandler)
-	r.HandleFunc("/logout", logout.LogoutHandler)
-	r.HandleFunc("/callback", callback.CallbackHandler)
+	r.HandleFunc("/", home.Handler)
+	r.HandleFunc("/login", login.Handler)
+	r.HandleFunc("/logout", logout.Handler)
+	r.HandleFunc("/callback", callback.Handler)
 	r.Handle("/user", negroni.New(
 		negroni.HandlerFunc(middlewares.IsAuthenticated),
-		negroni.Wrap(http.HandlerFunc(user.UserHandler)),
+		negroni.Wrap(http.HandlerFunc(user.Handler)),
 	))
 	r.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("public/"))))
 	http.Handle("/", r)

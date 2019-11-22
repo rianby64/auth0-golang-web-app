@@ -9,7 +9,8 @@ import (
 	"auth"
 )
 
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
+// Handler whatever
+func Handler(w http.ResponseWriter, r *http.Request) {
 	// Generate random state
 	b := make([]byte, 32)
 	_, err := rand.Read(b)

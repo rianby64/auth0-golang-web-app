@@ -7,7 +7,8 @@ import (
 	"templates"
 )
 
-func UserHandler(w http.ResponseWriter, r *http.Request) {
+// Handler whatever
+func Handler(w http.ResponseWriter, r *http.Request) {
 
 	session, err := app.Store.Get(r, "auth-session")
 	if err != nil {
@@ -15,5 +16,6 @@ func UserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	templates.RenderTemplate(w, "user", session.Values["profile"])
+	profile, _ := session.Values["profile"]
+	templates.RenderTemplate(w, "user", profile)
 }
